@@ -7,6 +7,11 @@ interface AnyConstructor {
   new(...args: any[]): any;
 }
 
+
+type Promisified<Type> = Type extends Promise<any> ? Type : Promise<Type>;
+
+type PromisifiedFunction<F extends AnyFunction> = (...args: Parameters<F>) => Promisified<ReturnType<F>>;
+
 // Return type for processed functions
 type AtWorkFunctionReturn<T extends AnyFunction> = ReturnType<T> extends Promise<any> ? ReturnType<T> : Promise<ReturnType<T>>;
 // Type of the processed functions
